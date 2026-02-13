@@ -1,5 +1,6 @@
 # Power-Flow-LaTex-Report
 Create a LaTeX power flow report from information in an Excel file using the Pandas Power library in Python.
+
 Calculate power flow in an electrical system from a populated Excel spreadsheet using the panda power library in Python.
 Generate a LaTeX report with result tables and diagrams indicating the information relevant to the power flow analysis.
 Fill in the tables in data.xlsx and save it. Then specify the file path for use in the Python function power_flow_calculator(file).
