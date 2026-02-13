@@ -202,14 +202,16 @@ def power_flow_calculator(arquivo):
     return PFResult(df_results_buses, df_results_lines, df_results_transformers, df_results_generators, df_parameters, df_buses, df_lines, df_trafos)
 
 
-file = "data.xlsx"
-res = power_flow_calculator(file)
+if __name__ == "__main__":
 
-print(res.df_data_info)
-print(res.df_data_bus)
-print(res.df_data_line)
-print(res.df_data_trafo)
-print(res.df_bus)
-print(res.df_line)
-print(res.df_trafo)
-print(res.df_gen)
+    file = "data.xlsx"
+    res = power_flow_calculator(file)
+
+    print(res.df_data_info)
+    print(res.df_data_bus)
+    print(res.df_data_line)
+    print(res.df_data_trafo)
+    print(res.df_bus)
+    print(res.df_line)
+    print(res.df_trafo)
+    print(res.df_gen)
