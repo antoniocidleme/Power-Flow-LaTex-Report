@@ -1,0 +1,159 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{pdflscape}
+\usepackage{makecell}
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
+\geometry{top=50pt, left=10pt, right=10pt}
+\title{\textbf{POWER FLOW ANALYSIS} \vspace{15pt} \\ 4 - Bus System}
+\date{\vspace{-20pt}\today}
+\begin{document}
+\maketitle
+\vspace*{\fill}
+\begin{center}
+\begin{tikzpicture}[auto, node distance=2cm, bus/.style={draw, circle, minimum size=0.9cm, inner sep=0pt, font=\fontsize{15pt}{10pt}\selectfont}, midarrow/.style={thick, -{Stealth[length=4mm, width=3mm]}}, hightrafo/.style={draw, circle, minimum size=0.8cm}, lowtrafo/.style={draw, circle, minimum size=0.7cm}]
+\node[bus] (B1) at (5.000000, 0.000000) {1};
+\node[bus] (B2) at (0.000000, 5.000000) {2};
+\node[bus] (B3) at (-5.000000, 0.000000) {3};
+\node[bus] (B4) at (-0.000000, -5.000000) {4};
+\draw (B1) -- (B2);
+\draw[midarrow] (B1) -- ($(B1)!0.5!(B2)$);
+\draw (B1) -- (B3);
+\draw[midarrow] (B1) -- ($(B1)!0.5!(B3)$);
+\draw (B2) -- (B4);
+\draw[midarrow] (B4) -- ($(B4)!0.5!(B2)$);
+\draw (B3) -- (B4);
+\draw[midarrow] (B4) -- ($(B4)!0.5!(B3)$);
+\end{tikzpicture}
+\end{center}
+\vspace{40pt} \large \centering $\longrightarrow$ indicates the direction of active power flow.
+\vspace*{\fill}
+\newpage
+{\centering \section*{System Data}}
+\begin{center}
+Buses\\
+\vspace{5pt}
+\begin{tabular}{|c c|c c|c c c c|c c|}
+\hline
+\multicolumn{2}{|c|}{Bus} & \multicolumn{2}{c|}{Load} & \multicolumn{4}{c|}{Generator} & \multicolumn{2}{c|}{Shunt}  \\
+\cline{1-10}
+No. & $V_n$ (kV) & P (MW) & Q (MW) & P (MW) & $P_{max}$ (MW) & $Q_{min}$ (MVAr) & $Q_{max}$ (MVAr) & G (pu) & B (pu) \\
+\hline
+1 & 230.0 & 50.00 & 30.99 &  0.00 & 900.00 & -900.00 & 900.00 & -- & -- \\
+2 & 230.0 & 170.00 & 105.35 & -- & -- & -- & -- & -- & -- \\
+3 & 230.0 & 200.00 & 123.94 & -- & -- & -- & -- & -- & -- \\
+4 & 230.0 & 80.00 & 49.58 & 318.00 & 900.00 & -900.00 & 900.00 & -- & -- \\
+\hline
+\end{tabular}
+\end{center}
+\begin{center}
+Lines\\
+\vspace{5pt}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+From & To & R (pu) & X (pu) & $B_{sh}$ (pu) & $I_{max}$ (kA) \\
+\hline
+1 & 2 & 0.01008 & 0.0504 & 0.1025 & 5.0 \\
+1 & 3 & 0.00744 & 0.0372 & 0.0775 & 5.0 \\
+2 & 4 & 0.00744 & 0.0372 & 0.0775 & 5.0 \\
+3 & 4 & 0.01272 & 0.0636 & 0.1275 & 5.0 \\
+\hline
+\end{tabular}
+\end{center}
+\newpage
+{\centering \section*{Results}}\begin{center}
+Buses\\
+\vspace{5pt}
+\begin{tabular}{|c|c|c|c|c|}
+\hline
+Bus & $V_{mag}$ (pu) & $V_{ang}$ ($^\circ$) & P (MW) & Q (MVAr) \\
+\hline
+1 &   1.000 &   0.000 & -136.81 & -83.51 \\
+2 &   0.982 &  -0.976 & 170.00 & 105.35 \\
+3 &   0.969 &  -1.872 & 200.00 & 123.94 \\
+4 &   1.020 &   1.523 & -238.00 & -131.85 \\
+\hline
+\end{tabular}
+\end{center}
+\begin{center}
+Lines\\
+\vspace{5pt}
+\begin{tabular}{|c|c|c|c|c|c|c|c|}
+\hline
+From & To & F:T P (MW) & F:T Q (MVAr) & T:F P (MW) & T:F Q (MVAr) & $P_{losses}$ (MW) & $Q_{losses}$ (MVAr) \\
+\hline
+1 & 2 &  38.692 &  22.298 & -38.465 & -31.236 &   0.227 &  -8.938 \\
+1 & 3 &  98.118 &  61.212 & -97.086 & -63.569 &   1.031 &  -2.356 \\
+2 & 4 & -131.535 & -74.114 & 133.251 &  74.920 &   1.715 &   0.806 \\
+3 & 4 & -102.914 & -60.371 & 104.749 &  56.930 &   1.835 &  -3.441 \\
+\hline
+\end{tabular}
+\end{center}
+\begin{center}
+Generators\\
+\vspace{5pt}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+Bus & P (MW) & Q (MVAr) & $P_{max}$ (MW) & $Q_{min}$ (MVAr) & $Q_{max}$ (MVAr) \\
+\hline
+1 & 186.809 & 114.501 & 900.000 & -900.000 & 900.000 \\
+4 & 318.000 & 181.430 & 900.000 & -900.000 & 900.000 \\
+\hline
+\end{tabular}
+\end{center}
+\begin{landscape}
+\vspace*{\fill}
+\begin{center}
+\begin{adjustbox}{width=\textwidth}
+\begin{tabular}{|c c c c c|c c|c c|c c|c c c|}
+\hline
+\multicolumn{5}{|c|}{Bus} & \multicolumn{2}{c|}{Generation} & \multicolumn{2}{c|}{Load} & \multicolumn{2}{c|}{Shunt} & \multicolumn{3}{c|}{Line Flow} \\
+\hline
+No. & Type & $V_{base}$ (kV) & $V_{mag}$ (pu) & $V_{ang}$ ($^\circ$) & P (MW) & Q (MVAr) & P (MW) & Q (MVAr) & G (MW) & B (MVAr) & To Bus & $P_{losses}$ (MW) & $Q_{losses}$ (MVAr) \\
+\hline
+1 & SL & 230 & 1.000 & 0.000 & 186.809 & 114.501 & 50 & 30.99 & 0 & 0 & \makecell[t]{2 \\ 3} & \makecell[t]{38.69 \\ 98.12} & \makecell[t]{22.30 \\ 61.21} \\
+2 & PQ & 230 & 0.982 & -0.976 & 0 & 0 & 170 & 105.35 & 0 & 0 & \makecell[t]{1 \\ 4} & \makecell[t]{-38.46 \\ -131.54} & \makecell[t]{-31.24 \\ -74.11} \\
+3 & PQ & 230 & 0.969 & -1.872 & 0 & 0 & 200 & 123.94 & 0 & 0 & \makecell[t]{1 \\ 4} & \makecell[t]{-97.09 \\ -102.91} & \makecell[t]{-63.57 \\ -60.37} \\
+4 & PV & 230 & 1.020 & 1.523 & 318 & 181.43 & 80 & 49.58 & 0 & 0 & \makecell[t]{2 \\ 3} & \makecell[t]{133.25 \\ 104.75} & \makecell[t]{74.92 \\ 56.93} \\
+\hline
+\end{tabular}
+\end{adjustbox}
+\end{center}
+\vspace*{\fill}
+\newpage
+\vspace*{\fill}
+\begin{center}
+\begin{tikzpicture}[auto, node distance=2cm, bus/.style={draw, circle, minimum size=0.9cm, inner sep=0pt, font=\fontsize{15pt}{10pt}\selectfont}, midarrow/.style={thick, -{Stealth[length=4mm, width=3mm]}}, hightrafo/.style={draw, circle, minimum size=0.8cm}, lowtrafo/.style={draw, circle, minimum size=0.7cm}, ftflow/.style={pos=0.2, above, sloped, font=\fontsize{0.5pt}{10pt}\selectfont}, tfflow/.style={pos=0.8, above, sloped, font=\fontsize{0.5pt}{10pt}\selectfont}, trafoflow/.style={midway, above=0.8pt, sloped, font=\tiny}]
+\node[bus] (B1) at (6.000000, 0.000000) {1};
+\node[bus] (B2) at (0.000000, 6.000000) {2};
+\node[bus] (B3) at (-6.000000, 0.000000) {3};
+\node[bus] (B4) at (-0.000000, -6.000000) {4};
+\draw (B1) -- (B2) node[ftflow] {38.69 + j22.30 MVA} node[tfflow] {-38.46 - j31.24 MVA};
+\draw[midarrow] (B1) -- ($(B1)!0.5!(B2)$);
+\draw (B1) -- (B3) node[ftflow] {98.12 + j61.21 MVA} node[tfflow] {-97.09 - j63.57 MVA};
+\draw[midarrow] (B1) -- ($(B1)!0.5!(B3)$);
+\draw (B2) -- (B4) node[ftflow] {-131.54 - j74.11 MVA} node[tfflow] {133.25 + j74.92 MVA};
+\draw[midarrow] (B4) -- ($(B4)!0.5!(B2)$);
+\draw (B3) -- (B4) node[ftflow] {-102.91 - j60.37 MVA} node[tfflow] {104.75 + j56.93 MVA};
+\draw[midarrow] (B4) -- ($(B4)!0.5!(B3)$);
+\node[bus] (G1) at (7.299038, 0.750000) {$\sim$};
+\draw (B1) -- (G1);
+\path (7.299038, 0.750000) -- (10.156922, 2.400000) node[midway, above, sloped, font=\small] {186.809 MW} node[midway, below, sloped, font=\small] {114.501 MVAr};
+\draw[midarrow] (B1) -- (7.732051, -1.000000);
+\path (7.732051, -1.000000) -- (9.117691, -1.800000) node[midway, above, sloped, font=\small] {50 MW} node[midway, below, sloped, font=\small] {30.99 MVAr};
+\draw[midarrow] (B2) -- (0.000000, 8.000000);
+\path (0.000000, 8.000000) -- (0.000000, 9.600000) node[midway, above, sloped, font=\small] {170 MW} node[midway, below, sloped, font=\small] {105.35 MVAr};
+\draw[midarrow] (B3) -- (-8.000000, 0.000000);
+\path (-8.000000, 0.000000) -- (-9.600000, 0.000000) node[midway, above, sloped, font=\small] {200 MW} node[midway, below, sloped, font=\small] {123.94 MVAr};
+\node[bus] (G2) at (0.750000, -7.299038) {$\sim$};
+\draw (B4) -- (G2);
+\path (0.750000, -7.299038) -- (2.400000, -10.156922) node[midway, above, sloped, font=\small] {318 MW} node[midway, below, sloped, font=\small] {181.43 MVAr};
+\draw[midarrow] (B4) -- (-1.000000, -7.732051);
+\path (-1.000000, -7.732051) -- (-1.800000, -9.117691) node[midway, above, sloped, font=\small] {80 MW} node[midway, below, sloped, font=\small] {49.58 MVAr};
+\end{tikzpicture}
+\end{center}
+\vspace*{\fill}
+\end{landscape}
+\end{document}
