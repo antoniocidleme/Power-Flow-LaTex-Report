@@ -407,8 +407,9 @@ file = "data.xlsx"
 res = pfc.power_flow_calculator(file)
 
 latex_text = power_flow_report_latex(res)
-print(latex_text) # for print latex text in terminal
+print(latex_text) # to print latex text in terminal
 
 dir = r"C:\Example\Folder"
 latex_file_name = "power_flow_report.tex"
-power_flow_report_latex_save(res, dir, latex_file_name) # for save .tex document
+
+power_flow_report_latex_save(res, dir, latex_file_name) # to save .tex document
