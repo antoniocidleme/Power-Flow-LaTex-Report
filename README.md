@@ -6,5 +6,5 @@ Generate a LaTeX report with result tables and diagrams indicating the informati
 Fill in the tables in data.xlsx and save it. Then specify the file path for use in the Python function power_flow_calculator(file).
 The data.xlsx file is provided in the repository. The information in the load, generator and shunt capacitor columns can be left blank if the bar does not contain them. The remaining information must be filled in, even if it is zero.
 The text of the latex report can be generated as a string in latex format using the response from the power_flow_calculator(file) function in the power_flow_report_latex(response) function.
-To generate the .tex file, use the response from power_flow_calculator(file), the path of an folder, and a name for the .tex file in the function power_flow_report_latex_save(response, directory, "report.tex").
+To generate the .tex file, use the response from power_flow_calculator(file), the path of an folder, and a name for the .tex file in the function power_flow_report_latex_save(response, directory_folder, "report.tex").
 This repository provides a validation example.
